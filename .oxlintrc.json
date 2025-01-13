@@ -1,0 +1,27 @@
+{
+  "plugins": [
+    "import",
+    "typescript",
+    "unicorn"
+  ],
+  "env": {
+    "browser": false,
+    "node": true
+  },
+  "settings": {},
+  "rules": {
+    "eqeqeq": "warn",
+    "import/no-cycle": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.test.ts",
+        "*.spec.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
+}
