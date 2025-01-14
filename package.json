@@ -1,6 +1,6 @@
 {
   "name": "bun-easy-router",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A lightweight, type-safe router for Bun with middleware support.",
   "type": "module",
   "main": "lib/index.js",

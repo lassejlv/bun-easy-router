@@ -16,6 +16,7 @@ A lightweight, type-safe router for Bun with middleware support and context util
   - [Logger Middleware](#logger-middleware)
   - [CORS Middleware](#cors-middleware)
   - [Bearer Auth Middleware](#bearer-auth-middleware)
+  - [Serve Static Files](#serve-static-files)
 
 ## Installation
 
@@ -161,6 +162,36 @@ router.delete('/users/:id', (c) =>
     /* ... */
   })
 )
+```
+
+### Static Files
+```typescript
+// Basic usage - serves files from ./public directory
+ router.use(Static())
+
+ // Advanced configuration
+ router.use(Static({
+   // Serve files from this directory
+   dir: "assets",
+
+   // Serve under this URL prefix
+   prefix: "/public",
+
+   // Custom index file
+   index: "main.html",
+
+   // Enable directory listing
+   listing: true,
+
+   // SPA mode - serve index.html for missing files
+   spa: true,
+
+   // Custom MIME types
+   mimeTypes: {
+     'webp': 'image/webp',
+     'mp4': 'video/mp4'
+   }
+ }))
 ```
 
 ### Type Safety
