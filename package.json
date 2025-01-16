@@ -1,14 +1,32 @@
 {
   "name": "bun-easy-router",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "A lightweight, type-safe router for Bun with middleware support.",
   "type": "module",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "module": "src/index.ts",
   "scripts": {
     "dev": "bun --watch .",
     "build": "bun build --compile --minify src/index.ts --outfile app",
     "lint": "oxlint . --fix"
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./router": {
+      "types": "./lib/router.d.ts",
+      "default": "./lib/router.js"
+    },
+    "./middleware": {
+      "types": "./lib/middleware/index.d.ts",
+      "default": "./lib/middleware/index.js"
+    },
+    "./middleware/*": {
+      "types": "./lib/middleware/*.d.ts",
+      "default": "./lib/middleware/*.js"
+    }
   },
   "devDependencies": {
     "@types/bun": "latest",

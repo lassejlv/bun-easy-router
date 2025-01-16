@@ -1,5 +1,5 @@
 import { join } from "path";
-import { statSync, readdirSync } from "fs";
+import fs from "fs"
 
 type Next = () => Promise<Response> | Response;
 
@@ -129,15 +129,15 @@ export function Static(options: StaticOptions = {}) {
     const fullPath = join(resolvedOptions.dir, path);
 
     try {
-      const stats = statSync(fullPath);
+      const stats = fs.statSync(fullPath);
 
       if (stats.isDirectory()) {
         // Check for index file
         const indexPath = join(fullPath, resolvedOptions.index);
         try {
-          const indexStats = statSync(indexPath);
+          const indexStats = fs.statSync(indexPath);
           if (indexStats.isFile()) {
-            const file = Bun.file(indexPath);
+            const file = fs.readFileSync(indexPath);
             return new Response(file, {
               headers: {
                 'Content-Type': getMimeType(resolvedOptions.index, resolvedOptions.mimeTypes)
@@ -150,7 +150,7 @@ export function Static(options: StaticOptions = {}) {
 
         // Directory listing
         if (resolvedOptions.listing) {
-          const files = readdirSync(fullPath);
+          const files = fs.readdirSync(fullPath);
           const listing = generateDirectoryListing(path, files);
           return new Response(listing, {
             headers: { 'Content-Type': 'text/html' }

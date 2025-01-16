@@ -1,4 +1,5 @@
 import * as path from 'path/posix'
+import fs from 'fs'
 
 // Base context type without params
 interface ContextType {
@@ -77,7 +78,7 @@ function Context(request: Request): ContextType {
   }
 
   const sendFile = async (filePath: string, status: number = 200) => {
-    const file = Bun.file(filePath)
+    const file = await fs.promises.readFile(filePath)
     let rawFileName = path.basename(filePath)
     rawFileName = rawFileName.replace(/ /g, '_')
     rawFileName = rawFileName.replace(/\\/g, '_')
@@ -100,7 +101,7 @@ function Context(request: Request): ContextType {
 
   const readHtml = async (filePath: string) => {
     if (!filePath.endsWith('.html')) throw new Error('File must be an HTML file')
-    const file = await Bun.file(filePath).text()
+    const file = await fs.promises.readFile(filePath, 'utf-8')
     return file
   }
 

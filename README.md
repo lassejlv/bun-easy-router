@@ -1,4 +1,4 @@
-# Bun Easy Router
+# Bun Easy Router (works with Deno too)
 
 A lightweight, type-safe router for Bun with middleware support and context utilities.
 
@@ -21,7 +21,7 @@ A lightweight, type-safe router for Bun with middleware support and context util
 ## Installation
 
 ```bash
-bun add bun-easy-router
+bun add bun-easy-router # or deno add npm:bun-easy-router
 ```
 
 ## Basic Usage
@@ -29,6 +29,7 @@ bun add bun-easy-router
 ```typescript
 import { Router, Logger, Cors, BearerAuth } from 'bun-easy-router'
 
+// Deno.serve is also supported the same way.
 Bun.serve({
   port: 3001,
   fetch: async (request: Request) => {

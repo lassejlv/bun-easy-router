@@ -11,7 +11,7 @@ if (existsSync(dir)) rmSync(dir, { recursive: true })
 // Build source files
 Bun.build({
   format: 'esm',
-  target: 'bun',
+  target: 'node',
   outdir: './lib',
   entrypoints: ['./src/index'],
   minify: {
