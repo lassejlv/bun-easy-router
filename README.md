@@ -1,4 +1,4 @@
-# Bun Easy Router (works with Deno too)
+# Bun Easy Router (works with Deno/Node too)
 
 A lightweight, type-safe router for Bun with middleware support and context utilities.
 
@@ -21,7 +21,7 @@ A lightweight, type-safe router for Bun with middleware support and context util
 ## Installation
 
 ```bash
-bun add bun-easy-router # or deno add npm:bun-easy-router
+bun add bun-easy-router # or deno add npm:bun-easy-router or npm add bun-easy-router
 ```
 
 ## Basic Usage
@@ -53,6 +53,36 @@ Bun.serve({
     return router.run()
   },
 })
+```
+
+### Using with node.js
+
+```javascript
+import { Logger, Router } from 'bun-easy-router'
+import { createServer } from 'http'
+
+const server = createServer(async (req, res) => {
+  const webRequest = new Request(`http://${req.headers.host}${req.url}`, {
+    method: req.method,
+    headers: req.headers,
+  })
+
+  const router = new Router(webRequest)
+  router.use(Logger())
+  router.get('/', (c) => c.json('Hello world!'))
+
+  try {
+    const response = await router.run()
+    // Convert Web Response back to Node response
+    res.writeHead(response.status, Object.fromEntries(response.headers))
+    res.end(await response.text())
+  } catch (error) {
+    res.writeHead(500)
+    res.end('Internal Server Error')
+  }
+})
+
+server.listen(3000)
 ```
 
 ## Features
